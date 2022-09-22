@@ -79,7 +79,7 @@ func (c *Client) CreateItem(item Item) (*Item, error) {
 }
 
 // PUT item
-func (c *Client) UpdateItem(item []Item) (*Item, error) {
+func (c *Client) UpdateItem(item Item) (*Item, error) {
 	rb, err := json.Marshal(item)
 	if err != nil {
 		return nil, err
@@ -105,7 +105,7 @@ func (c *Client) UpdateItem(item []Item) (*Item, error) {
 }
 
 // DELETE item
-func (c *Client) DeleteItem(item []Item) (*Item, error) {
+func (c *Client) DeleteItem(item Item) (*Item, error) {
 	rb, err := json.Marshal(item)
 	if err != nil {
 		return nil, err
