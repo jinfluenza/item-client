@@ -3,7 +3,6 @@ package item
 import (
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"time"
 )
@@ -28,19 +27,16 @@ func (c *Client) sendRequest(rq *http.Request) ([]byte, error) {
 	res, err := c.HTTPClient.Do(rq)
 
 	if err != nil {
-		log.Fatalf("Request failed due to: %s", err)
+		return nil, err
 	}
-
-	defer res.Body.Close()
 
 	body, err := ioutil.ReadAll(res.Body)
 
 	if err != nil {
-		log.Fatal("Unable to read the response body due to followin reason: \n", err)
+		return nil, err
 	}
 
 	if res.StatusCode != http.StatusOK {
-		log.Fatalf("Status: %d, body: %s", res.StatusCode, body)
 		return nil, fmt.Errorf("Status: %d, body: %s", res.StatusCode, body)
 	}
 
