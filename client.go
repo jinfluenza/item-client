@@ -25,15 +25,16 @@ func NewClient() (*Client, error) {
 
 func (c *Client) sendRequest(rq *http.Request) ([]byte, error) {
 	res, err := c.HTTPClient.Do(rq)
-
 	if err != nil {
 		return nil, err
 	}
 
+	defer res.Body.Close()
+
 	body, err := ioutil.ReadAll(res.Body)
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("FAILIGN HERE?")
 	}
 
 	if res.StatusCode != http.StatusOK {
